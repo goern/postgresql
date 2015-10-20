@@ -11,11 +11,12 @@ required or optional and all volumes that are required are present as LABELs.
 Using these labels we will generate a Nulecule file by mapping the lables
 to Nulecule objects. This will be done by Dockerfile2Nulecule.
 
-As a result of this POC a
-
 ## Hacking on it
 
 ```
+git clone https://github.com/goern/postgresql/
+cd postgresql
+git checkout feature/enhanced-labels
 cd hack
 go get github.com/docker/docker/builder/dockerfile/parser
 go build
