@@ -1,9 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
-	"github.com/docker/docker/builder/parser"
+	"github.com/docker/docker/builder/dockerfile/parser"
 )
 
 func main() {
@@ -21,6 +22,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	} else { // and figure out all the LABELs that we need
-
+		fmt.Println(ast.Dump())
 	}
 }
