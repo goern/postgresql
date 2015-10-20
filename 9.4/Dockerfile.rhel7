@@ -1,14 +1,6 @@
 FROM rhel7
 
 # PostgreSQL image for OpenShift.
-# Volumes:
-#  * /var/lib/psql/data   - Database cluster for PostgreSQL
-# Environment:
-#  * $POSTGRESQL_USER     - Database user name
-#  * $POSTGRESQL_PASSWORD - User's password
-#  * $POSTGRESQL_DATABASE - Name of the database to create
-#  * $POSTGRESQL_ADMIN_PASSWORD (Optional) - Password for the 'postgres'
-#                           PostgreSQL administrative account
 
 ENV POSTGRESQL_VERSION=9.4 \
     HOME=/var/lib/pgsql \
@@ -18,6 +10,21 @@ LABEL io.k8s.description="PostgreSQL is an advanced Object-Relational database m
       io.k8s.display-name="PostgreSQL 9.4" \
       io.openshift.expose-services="5432:postgresql" \
       io.openshift.tags="database,postgresql,postgresql94,rh-postgresql94"
+
+# Labels consumed by Nulecule Specification
+# Volumes:
+#  * /var/lib/psql/data   - Database cluster for PostgreSQL
+# Environment:
+#  * $POSTGRESQL_USER     - Database user name
+#  * $POSTGRESQL_PASSWORD - User's password
+#  * $POSTGRESQL_DATABASE - Name of the database to create
+#  * $POSTGRESQL_ADMIN_PASSWORD (Optional) - Password for the 'postgres'
+#                           PostgreSQL administrative account
+LABEL io.projectatomic.nulecule.volume.data="{\"mountpoint\":\"/var/lib/psql/data\",\"size_hint\":\"5Gi\"}"
+      io.projectatomic.nulecule.environment.POSTGRESQL_USER="required"
+      io.projectatomic.nulecule.environment.POSTGRESQL_PASSWORD="required"
+      io.projectatomic.nulecule.environment.POSTGRESQL_DATABASE="required"
+      io.projectatomic.nulecule.environment.POSTGRESQL_ADMIN_PASSWORD="optional"
 
 # Labels consumed by Red Hat build service
 LABEL Component="rh-postgresql94" \
